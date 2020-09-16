@@ -10,7 +10,17 @@ public class Palindrome {
      * 4. "abA" is not a palindrome.
      * @throws IllegalArgumentException if str is `null`
      */
-    public static boolean isPalindrome(String str) {
-        throw new RuntimeException("Not implemented");
+    public static boolean isPalindrome(String str) throws IllegalArgumentException{
+        if (str == null){
+            throw new  IllegalArgumentException();
+        }
+        int reverse_i = str.length() - 1;
+        for (int i = 0; i < str.length() / 2; i++, reverse_i--){
+            if (str.charAt(i) != str.charAt(reverse_i)){
+                return false;
+            }
+        }
+        return true;
+//        throw new RuntimeException("Not implemented");
     }
 }
