@@ -4,7 +4,8 @@ import java.util.*;
 
 public class IntervalsMerger {
     /**
-     * Given array of intervals, merge overlapping intervals and sort them by start in ascending order
+     * Given array of intervals, merge overlapping intervals and sort them by start in
+     * ascending order
      * Interval is defined as [start, end] where start < end
      * <p>
      * Examples:
@@ -47,13 +48,13 @@ public class IntervalsMerger {
                 }
             }
         }
-        int[][] answ_res = new int[answ.size() / 2][2];
+        int[][] answRes = new int[answ.size() / 2][2];
         int j = 0;
         for (int i = 0; i < answ.size(); i += 2) {
-            answ_res[j][0] = answ.get(i);
-            answ_res[j][1] = answ.get(i + 1);
+            answRes[j][0] = answ.get(i);
+            answRes[j][1] = answ.get(i + 1);
             j++;
         }
-        return answ_res;
+        return answRes;
     }
 }

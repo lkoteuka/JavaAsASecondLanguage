@@ -37,10 +37,10 @@ public class StringCompressor {
         if (str.length == 0) {
             return str;
         }
-        int chang_ind = 0;
+        int changInd = 0;
         int acum = 0;
         for (int i = 1; i < str.length; i++) {
-            while (str[i] == str[chang_ind]) {
+            while (str[i] == str[changInd]) {
                 if ((str[i] < 97) || (str[i] > 122)) {
                     throw new IllegalArgumentException();
                 }
@@ -50,21 +50,23 @@ public class StringCompressor {
                     break;
                 }
             }
-            chang_ind++;
+            changInd++;
             if (acum > 0) {
-                str[chang_ind] = Character.forDigit(acum + 1, 10);
-                chang_ind++;
+                str[changInd] = Character.forDigit(acum + 1, 10);
+                changInd++;
                 if (i >= str.length) {
                     break;
                 }
-                str[chang_ind] = str[i];
+                str[changInd] = str[i];
                 acum = 0;
             } else {
-                str[chang_ind] = str[i];
+                str[changInd] = str[i];
             }
         }
-        if (acum == 0) chang_ind++;
-        char[] res = Arrays.copyOf(str, chang_ind);
+        if (acum == 0) {
+            changInd++;
+        }
+        char[] res = Arrays.copyOf(str, changInd);
         return res;
     }
 }
