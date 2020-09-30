@@ -2,6 +2,7 @@ package io.github.javaasasecondlanguage.lecture03.practice4;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 
 public class LocationService {
@@ -12,10 +13,16 @@ public class LocationService {
     }
 
     public Optional<Place> findClosestByTag(Location userLocation, String tag) {
+        places.stream().filter(x -> x.tags().contains(tag))
+                .min(x -> userLocation.distanceTo(x.location))
+                .get()
+                .name();
         throw new RuntimeException("Not implemented");
     }
 
     public String mostCommonTag() {
+        places.stream().filter(x -> x.tags())
+                ;
         throw new RuntimeException("Not implemented");
     }
 }
