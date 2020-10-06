@@ -18,15 +18,15 @@ public class Injector {
             return null;
         } else {
             return (T) Proxy.newProxyInstance(
-                    clazz.getClassLoader(),
-                    new Class<?>[]{clazz},
-                    (proxy, method, args) -> {
-                        Object parameter1 = Injector.getObject(clazz, qualifier);
-                        if (parameter1 == null) {
-                            throw new NullPointerException();
-                        }
-                        return method.invoke(parameter1, args);
+                clazz.getClassLoader(),
+                new Class<?>[]{clazz},
+                (proxy, method, args) -> {
+                    Object parameter1 = Injector.getObject(clazz, qualifier);
+                    if (parameter1 == null) {
+                        throw new NullPointerException();
                     }
+                    return method.invoke(parameter1, args);
+                }
             );
         }
     }
