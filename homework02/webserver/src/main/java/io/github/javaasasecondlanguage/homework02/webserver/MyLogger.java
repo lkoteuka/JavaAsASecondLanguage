@@ -9,7 +9,9 @@ public class MyLogger implements Logger {
         this.log.info(msg);
     }
 
-    public void warning(String msg) { this.log.warning(msg); }
+    public void warning(String msg) {
+        this.log.warning(msg);
+    }
 
     public void fine(String msg) {
         this.log.fine(msg);
