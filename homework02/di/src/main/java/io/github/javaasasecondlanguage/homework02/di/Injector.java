@@ -1,5 +1,7 @@
 package io.github.javaasasecondlanguage.homework02.di;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,12 +22,17 @@ public class Injector {
             return (T) Proxy.newProxyInstance(
                 clazz.getClassLoader(),
                 new Class<?>[]{clazz},
-                (proxy, method, args) -> {
-                    Object parameter1 = Injector.getObject(clazz, qualifier);
-                    if (parameter1 == null) {
-                        throw new NullPointerException();
+                new InvocationHandler() {
+                    Object wrapped = null;
+
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args)
+                            throws Throwable {
+                        if (wrapped == null) {
+                            wrapped = getObject(clazz, qualifier);
+                        }
+                        return method.invoke(wrapped, args);
                     }
-                    return method.invoke(parameter1, args);
                 }
             );
         }

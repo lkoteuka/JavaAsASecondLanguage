@@ -10,10 +10,11 @@ public class Application {
     public static void initDI() {
         new Context()
                 .register("Hello dear ", "welcomeText")
+                .register(Map.of("/test", new MyHttpHandler()))
                 .register(8080, "port")
                 .register("localhost", "host")
-                .register(Map.of("/test", new MyHttpHandler()))
                 .register(Executors.newFixedThreadPool(10))
+                .register(Map.of("/test", new MyHttpHandler()))
                 .register(new MyLogger())
                 .register(new MyWebServer());
     }
