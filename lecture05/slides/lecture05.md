@@ -7,9 +7,9 @@
 
 - Annotations
 - Reflection
-- Practice 1
+- Practice 1, 2
 - Spring DI
-- Practice 2
+- Practice 3
 - Into to Homework 3
 
 
@@ -51,9 +51,16 @@ public enum RetentionPolicy {
 
 
 ---
-## 
+## Practice 1
+### Reflection Playground
+
+---
+## Practice 2
+### (De) serialization
+
+
 ---
 ## TIL
-- a
-- b
-- c
+- Annotations
+- Reflection
+- 
