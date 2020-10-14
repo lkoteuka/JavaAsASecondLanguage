@@ -62,11 +62,34 @@ public class ChatController {
      * curl -X POST -i localhost:8080/chat/logout -d "name=I_CAN_COPY_PASTE"
      */
     //TODO
+    @RequestMapping(
+            path = "logout",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> logout(@RequestParam("name") String name) {
+        if (usersOnline.containsKey(name)) {
+            usersOnline.remove(name);
+            messages.add("[" + name + "] logged out");
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().body("name Not found :(");
+    }
 
     /**
      * curl -X POST -i localhost:8080/chat/say -d "name=I_CAN_COPY_PASTE&msg=Hello"
      */
     //TODO
+    @RequestMapping(
+            path = "say",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> say(@RequestParam("name") String name,
+                                      @RequestParam("msg") String msg) {
+        messages.add("to [" + name + "]: " + msg);
+        return ResponseEntity.ok().build();
+    }
 
     /**
      * curl -i localhost:8080/chat/chat
