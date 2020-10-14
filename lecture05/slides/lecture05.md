@@ -7,9 +7,8 @@
 
 - Annotations
 - Reflection
-- Practice 1, 2
-- Spring DI
-- Practice 3
+- Practice 1, 2, 3
+- Live coding - Spring DI
 - Into to Homework 3
 
 
@@ -77,8 +76,20 @@ Foo f = (Foo) Proxy.newProxyInstance(
 ## Practice 3
 ### Dynamic Proxy
 
+
+---
+## Live coding
+### Spring DI
+
+
+---
+## Homework 3
+### Intro
+
 ---
 ## TIL
 - Annotations
 - Reflection
-- 
+- Dynamic Proxy 
+- Spring DI
+- Homework 3 
