@@ -1,4 +1,4 @@
-package io.github.javaasasecondlanguage.lecture05;
+package io.github.javaasasecondlanguage.lecture05.practice2;
 
 import java.util.Map;
 

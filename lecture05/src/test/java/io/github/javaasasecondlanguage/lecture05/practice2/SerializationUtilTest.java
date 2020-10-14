@@ -1,4 +1,4 @@
-package io.github.javaasasecondlanguage.lecture05;
+package io.github.javaasasecondlanguage.lecture05.practice2;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -13,24 +13,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SerializationUtilTest {
 
     static class A {
-        private Integer anInteger;
-        private String aString;
+        private Integer theInteger;
+        private String theString;
 
-        public Integer getAnInteger() {
-            return anInteger;
+        public Integer getTheInteger() {
+            return theInteger;
         }
 
-        public String getaString() {
-            return aString;
+        public String getTheString() {
+            return theString;
         }
     }
 
     static class B {
-        private double aDouble;
+        private double theDouble;
         private ArrayList<String> list;
 
-        public double getaDouble() {
-            return aDouble;
+        public double getTheDouble() {
+            return theDouble;
         }
 
         public ArrayList<String> getList() {
@@ -41,36 +41,35 @@ class SerializationUtilTest {
     @Test
     void serializeTest() {
         A a = new A();
-        a.anInteger = 42;
-        a.aString = "xxx";
+        a.theInteger = 42;
+        a.theString = "xxx";
 
         var result = SerializationUtil.serialize(a);
         assertEquals(2, result.size());
-        assertEquals(42, result.get("anInteger"));
-        assertEquals("xxx", result.get("aString"));
-        System.out.println(result);
+        assertEquals(42, result.get("theInteger"));
+        assertEquals("xxx", result.get("theString"));
     }
 
     @Test
     void deserializeTest() {
-        Map<String, ?> map = Map.of("anInteger", 42, "aString", "xxx");
+        Map<String, ?> map = Map.of("theInteger", 42, "theString", "xxx");
         var result = SerializationUtil.deserialize(map, A.class);
 
         assertEquals(A.class, result.getClass());
-        assertEquals(Integer.valueOf(42), result.getAnInteger());
-        assertEquals("xxx", result.getaString());
+        assertEquals(Integer.valueOf(42), result.getTheInteger());
+        assertEquals("xxx", result.getTheString());
     }
 
     @Test
     void serializeThenDeserialize() {
         var b = new B();
-        b.aDouble = 1.2345;
+        b.theDouble = 1.2345;
         b.list = new ArrayList<>();
         b.list.addAll(List.of("1", "2", "3"));
 
         var newB = SerializationUtil.deserialize(SerializationUtil.serialize(b), B.class);
 
-        assertEquals(b.getaDouble(), newB.getaDouble());
+        assertEquals(b.getTheDouble(), newB.getTheDouble());
         assertEquals(b.getList(), newB.getList());
     }
 }
