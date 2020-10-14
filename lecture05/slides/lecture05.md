@@ -60,6 +60,24 @@ public enum RetentionPolicy {
 
 
 ---
+## Dynamic Proxy
+@see [Proxy Oracle docs](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/reflect/Proxy.html)
+
+```java
+InvocationHandler handler = new MyInvocationHandler(...);
+Foo f = (Foo) Proxy.newProxyInstance(
+          Foo.class.getClassLoader(),
+          new Class`?`[] { Foo.class },
+          handler
+)
+```
+
+
+---
+## Practice 3
+### Dynamic Proxy
+
+---
 ## TIL
 - Annotations
 - Reflection
