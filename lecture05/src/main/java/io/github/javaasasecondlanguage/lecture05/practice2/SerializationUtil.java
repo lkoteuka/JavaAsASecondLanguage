@@ -1,5 +1,7 @@
 package io.github.javaasasecondlanguage.lecture05.practice2;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,7 +29,17 @@ public class SerializationUtil {
      * @return
      */
     static Map<String, ?> serialize(Object obj) {
-        throw new RuntimeException("Not implemented");
+        var result = new HashMap<String, Object>();
+        try {
+            for (Field field : obj.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                result.put(field.getName(), field.get(obj));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
@@ -36,6 +48,18 @@ public class SerializationUtil {
      * @param clazz - target type of deserialization
      */
     static <T> T deserialize(Map<String, ?> obj, Class<T> clazz) {
-        throw new RuntimeException("Not implemented");
+        T instance = null;
+        try {
+            var ctor = clazz.getDeclaredConstructor();
+            instance = ctor.newInstance();
+            for (Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+                field.set(instance, obj.get(field.getName()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return instance;
     }
 }

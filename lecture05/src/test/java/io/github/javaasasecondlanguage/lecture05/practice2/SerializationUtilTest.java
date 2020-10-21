@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Disabled
+//@Disabled
 class SerializationUtilTest {
 
     static class A {
