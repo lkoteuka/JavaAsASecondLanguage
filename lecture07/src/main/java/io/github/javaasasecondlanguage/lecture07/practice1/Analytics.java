@@ -13,9 +13,9 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.logging.Logger;
 
 public class Analytics {
-    final private static int MAX_SENT_ANALYSIS = 10;
-    final private static int MAX_DOWNLOAD_HACK_CONTENT = 2;
-    final private static int QUEUE_REQUEST_SIZE = 100;
+    private final int MAX_SENT_ANALYSIS = 10;
+    private final int MAX_DOWNLOAD_HACK_CONTENT = 2;
+    private final int QUEUE_REQUEST_SIZE = 100;
     private volatile Integer maxContentId = 2500000;
     private final AtomicInteger currentContentId = new AtomicInteger(2400000);
     private final BlockingQueue<String> queue = new ArrayBlockingQueue<>(QUEUE_REQUEST_SIZE);
@@ -34,7 +34,8 @@ public class Analytics {
         for (String term : terms) {
             stats.put(term.toLowerCase(), new Stats());
         }
-        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService es =
+                Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         es.submit(this::updateLatestContentId);
         for (int i = 0; i < MAX_DOWNLOAD_HACK_CONTENT; i++) {
             es.submit(this::downloadHackerNewsContent);
@@ -68,14 +69,18 @@ public class Analytics {
                                     queue.put(sentence);
                                 } catch (InterruptedException e) {
                                     var mess = e.getMessage();
-                                    logger.info("Exception in 'downloadHackerNewsContent' function: " + mess);
+                                    logger.info(
+                                            "Exception in 'downloadHackerNewsContent' function: "
+                                                    + mess);
                                     e.printStackTrace();
                                 }
                             }
                         }
                     }
                 } catch (IOException e) {
-                    logger.info("Exception in 'downloadHackerNewsContent' function: " + e.getMessage());
+                    logger.info(
+                            "Exception in 'downloadHackerNewsContent' function: "
+                                    + e.getMessage());
                     e.printStackTrace();
                     continue;
                 }
@@ -121,10 +126,18 @@ public class Analytics {
                         if (sentences[i].contains(s.getKey())) {
                             s.getValue().mentions.incrementAndGet();
                             String marker = sentimentsList.get(i).asText("");
-                            if (marker.contains("Verynegative")) s.getValue().score.add(-3);
-                            if (marker.contains("Negative")) s.getValue().score.add(-1);
-                            if (marker.contains("Positive")) s.getValue().score.add(1);
-                            if (marker.contains("Verypositive")) s.getValue().score.add(3);
+                            if (marker.contains("Verynegative")) {
+                                s.getValue().score.add(-3);
+                            }
+                            if (marker.contains("Negative")) {
+                                s.getValue().score.add(-1);
+                            }
+                            if (marker.contains("Positive")) {
+                                s.getValue().score.add(1);
+                            }
+                            if (marker.contains("Verypositive")) {
+                                s.getValue().score.add(3);
+                            }
                         }
                     }
                 }
