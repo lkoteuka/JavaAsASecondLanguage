@@ -13,12 +13,12 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.logging.Logger;
 
 public class Analytics {
-    private final int MaxSentAnalysis = 10;
-    private final int MaxDownloadHackContent = 2;
-    private final int QueueRequestSize = 100;
+    private static final int MAX_SENT_ANALYSIS = 10;
+    private static final int MAX_DOWNLOAD_HACK_CONTENT = 2;
+    private static final int QUEUE_REQUEST_SIZE = 100;
     private volatile Integer maxContentId = 2500000;
     private final AtomicInteger currentContentId = new AtomicInteger(2400000);
-    private final BlockingQueue<String> queue = new ArrayBlockingQueue<>(QueueRequestSize);
+    private final BlockingQueue<String> queue = new ArrayBlockingQueue<>(QUEUE_REQUEST_SIZE);
     private final ConcurrentHashMap<String, Stats> stats = new ConcurrentHashMap<>();
     private final Logger logger = Logger.getLogger(getClass().getName());
 
@@ -37,10 +37,10 @@ public class Analytics {
         ExecutorService es =
                 Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         es.submit(this::updateLatestContentId);
-        for (int i = 0; i < MaxDownloadHackContent; i++) {
+        for (int i = 0; i < MAX_DOWNLOAD_HACK_CONTENT; i++) {
             es.submit(this::downloadHackerNewsContent);
         }
-        for (int i = 0; i < MaxSentAnalysis; i++) {
+        for (int i = 0; i < MAX_SENT_ANALYSIS; i++) {
             es.submit(this::getSentiments);
         }
         try {
