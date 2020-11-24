@@ -31,20 +31,16 @@ public class JoinerNode implements ProcNode {
         if (gateNumber == 0) {
             if (inputRecord.isTerminal()) {
                 terminated[gateNumber] = true;
-            }
-            else {
+            } else {
                 left.add(inputRecord);
             }
-        }
-        else if (gateNumber == 1){
+        } else if (gateNumber == 1) {
             if (inputRecord.isTerminal()) {
                 terminated[gateNumber] = true;
-            }
-            else {
+            } else {
                 right.add(inputRecord);
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Gate does not exist: " + gateNumber);
         }
         if (terminated[0] && terminated[1]) {

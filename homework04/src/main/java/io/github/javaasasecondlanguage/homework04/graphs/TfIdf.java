@@ -21,16 +21,16 @@ public class TfIdf {
                 .map(new RetainColumnsMapper(of("Id", "Text")))
                 .map(new LowerCaseMapper("Text"));
 
+        GraphPartBuilder textGraph = inputGraph
+                .branch()
+                .map(new TokenizerMapper("Text", "Token"))
+                .sortThenReduceBy(of("Id"), new WordFrequencyReducer("Token", "Tf"));
+
         GraphPartBuilder totalDocuments = inputGraph
                 .branch()
                 .reduceBy(of("Id"), new CountReducer("Count"))
                 .reduceBy(of("Count"), new SumReducer("Count", "Documents"))
                 .map(new RetainColumnsMapper(of("Documents")));
-
-        GraphPartBuilder textGraph = inputGraph
-                .branch()
-                .map(new TokenizerMapper("Text", "Token"))
-                .sortThenReduceBy(of("Id"), new WordFrequencyReducer("Token", "Tf"));
 
         GraphPartBuilder idf = textGraph
                 .branch()
